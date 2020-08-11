@@ -167,7 +167,7 @@
                         <th>Total Stock</th>
                         <th data-toggle="tooltip" data-placement="bottom" title="Promedio de ingresos por cada venta">Average C / V</th>
                         <th>Billed Amount</th>
-                        <th>Final Amount</th>
+                        <th>To Finalize</th>
                     </thead>
                     <tbody>
                         @foreach ($salesperiods as $period => $data)
@@ -175,7 +175,7 @@
                                 <td>{{ $period }}</td>
                                 <td>{{ $data->count() }}</td>
                                 <td>{{ $data->groupBy('client_id')->count() }}</td>
-                                <td>{{ format_money($data->where('finalized_at', '!=', null)->map(function ($sale) {return $sale->products->sum('qty');})->sum()) }}</td>
+                                <td>{{ $data->where('finalized_at', '!=', null)->map(function ($sale) {return $sale->products->sum('qty');})->sum() }}</td>
                                 <td>{{ format_money($data->avg('total_amount')) }}</td>
                                 <td>{{ format_money($data->where('finalized_at', '!=', null)->map(function ($sale) {return $sale->products->sum('total_amount');})->sum()) }}</td>
                                 <td>{{ $data->where('finalized_at', null)->count() }}</td>
